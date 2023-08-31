@@ -93,7 +93,7 @@ sudo apt update
 sudo apt upgrade -y
 sudo apt install --no-install-recommends -y docker.io docker-compose certbot pwgen
 
-echo 'version: '3.1'
+echo 'version: "3.1"
 
 services:
 
@@ -154,7 +154,7 @@ services:
 docker-compose up -d
 
 
-sudo echo 'version: '3.1'
+sudo echo 'version: "3.1"
 
 services:
 
