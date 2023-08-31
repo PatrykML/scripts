@@ -40,7 +40,7 @@ sudo chmod 400 /srv/mongo/cert/rs-key.yaml
 export DOMAIN=$DOMAIN
 cd /srv/mongo
 sudo docker-compose up -d
-sudo docker-compose exec mongo mongosh --tls --tlsAllowInvalidCertificates admin -c 'rs.initiate({_id : "pcapp", members: [{_id: 0, host: "$DOMAIN:27017"}]})'
+sudo docker-compose exec mongo mongosh --tls --tlsAllowInvalidCertificates admin -c 'rs.initiate({_id : "pcapp", members: [{_id: 0, host: "'"$DOMAIN"'":27017"}]})'
 sudo docker-compose exec mongo mongosh --tls --tlsAllowInvalidCertificates admin -c 'db.createUser( { user: "simpliadmin", pwd: "'"$PASSWORD_ROOT"'", roles: [ { role: "userAdminAnyDatabase", db: "admin" }, { role: "readWriteAnyDatabase", db: "admin" }, { role: 'dbAdminAnyDatabase', db: 'admin' }, { role: 'backup', db: 'admin' }, { role: 'clusterAdmin', db: 'admin' }, { role: 'restore', db: 'admin' } ]})'
 sudo docker-compose exec mongo mongosh --tls --tlsAllowInvalidCertificates admin -c 'db.createUser({user: "pcappadmin", pwd: "'"$PASSWORD_ROOT"'", roles: [{ role: "readWriteAnyDatabase", db: "admin" },{ role: 'dbAdminAnyDatabase', db: 'admin' }]})'
 sudo docker-compose down
