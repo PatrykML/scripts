@@ -7,7 +7,7 @@ sudo apt update
 sudo apt upgrade -y
 sudo apt install --no-install-recommends -y docker.io docker-compose certbot pwgen
 
-echo 'version: '3.1'
+echo 'version: "3.1"
 
 services:
 
@@ -186,7 +186,7 @@ sudo echo $PASSWORD_USER > pass_user
 sudo echo $PASSWORD_ROOT > pass_root
 
 # edit docker-compose.yml to replace entrypoint to:
-sudo echo 'version: '3.1'
+sudo echo 'version: "3.1"
 
 services:
 
