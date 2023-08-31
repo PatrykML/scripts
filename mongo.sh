@@ -68,3 +68,4 @@ services:
     entrypoint: [ "/usr/bin/mongod", "--auth", "--bind_ip_all", "--replSet", "pcapp", "--tlsMode", "requireTLS", "--tlsCertificateKeyFile", "/data/cert/mongo.pem", "--keyFile", "/data/cert/rs-key.yaml" ]' > docker-compose.yml
 
 docker-compose up -d
+exit 0
