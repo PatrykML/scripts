@@ -18,7 +18,7 @@ services:
       - 27017:27017
     network_mode: bridge
     extra_hosts:
-      - $DOMAIN:127.0.0.1
+      - privmx-test-mongo.westeurope.cloudapp.azure.com:127.0.0.1
     volumes:
       - /srv/mongo/data:/data/db
       - /srv/mongo/cert:/data/cert
@@ -41,8 +41,8 @@ export DOMAIN=$DOMAIN
 cd /srv/mongo
 sudo docker-compose up -d
 sudo docker-compose exec mongo mongosh --tls --tlsAllowInvalidCertificates admin -c 'rs.initiate({_id : "pcapp", members: [{_id: 0, host: "$DOMAIN:27017"}]})'
-sudo docker-compose exec mongo mongosh --tls --tlsAllowInvalidCertificates admin -c 'db.createUser( { user: "simpliadmin", pwd: passwordPrompt(), roles: [ { role: "userAdminAnyDatabase", db: "admin" }, { role: "readWriteAnyDatabase", db: "admin" }, { role: 'dbAdminAnyDatabase', db: 'admin' }, { role: 'backup', db: 'admin' }, { role: 'clusterAdmin', db: 'admin' }, { role: 'restore', db: 'admin' } ]})'
-sudo docker-compose exec mongo mongosh --tls --tlsAllowInvalidCertificates admin -c 'db.createUser({user: "pcappadmin", pwd: passwordPrompt(), roles: [{ role: "readWriteAnyDatabase", db: "admin" },{ role: 'dbAdminAnyDatabase', db: 'admin' }]})'
+sudo docker-compose exec mongo mongosh --tls --tlsAllowInvalidCertificates admin -c 'db.createUser( { user: "simpliadmin", pwd: "'"$PASSWORD_ROOT"'", roles: [ { role: "userAdminAnyDatabase", db: "admin" }, { role: "readWriteAnyDatabase", db: "admin" }, { role: 'dbAdminAnyDatabase', db: 'admin' }, { role: 'backup', db: 'admin' }, { role: 'clusterAdmin', db: 'admin' }, { role: 'restore', db: 'admin' } ]})'
+sudo docker-compose exec mongo mongosh --tls --tlsAllowInvalidCertificates admin -c 'db.createUser({user: "pcappadmin", pwd: "'"$PASSWORD_ROOT"'", roles: [{ role: "readWriteAnyDatabase", db: "admin" },{ role: 'dbAdminAnyDatabase', db: 'admin' }]})'
 sudo docker-compose down
 
 sudo echo $PASSWORD_USER > pass_user
@@ -60,7 +60,7 @@ services:
       - 27017:27017
     network_mode: bridge
     extra_hosts:
-      - $DOMAIN:127.0.0.1
+      - privmx-test-mongo.westeurope.cloudapp.azure.com:127.0.0.1
     volumes:
       - /srv/mongo/data:/data/db
       - /srv/mongo/cert:/data/cert
